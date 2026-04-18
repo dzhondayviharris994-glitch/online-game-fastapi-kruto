@@ -1,0 +1,46 @@
+<template>
+<head>
+    <meta charset="UTF-8">
+    <title>Главная</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+</head>
+<body>
+    <nav class="main-nav">
+        <a href="index.html">🏠 Главная</a>
+        <a href="login.html">🔐 Вход</a>
+        <a href="leaders.html">🏆 Лидеры</a>
+    </nav>
+
+    <div id="app">
+        <h1>{{ typedMessage }}</h1>
+        <p class="welcome-text">Добро пожаловать на сайт</p>
+        <p class="date">{{ currentDate }}</p>
+        <button @click="greet">Приветствие</button>
+    </div>
+
+    <script>
+        const { createApp, ref, onMounted } = Vue;
+        createApp({
+            setup() {
+                const fullMessage = 'Приветственная страница';
+                const typedMessage = ref('');
+                const currentDate = ref(new Date().toLocaleDateString('ru-RU', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' }));
+                const greet = () => alert('Привет!');
+
+                let i = 0;
+                const typeWriter = () => {
+                    if (i < fullMessage.length) {
+                        typedMessage.value += fullMessage.charAt(i);
+                        i++;
+                        setTimeout(typeWriter, 70);
+                    }
+                };
+                onMounted(typeWriter);
+
+                return { typedMessage, currentDate, greet };
+            }
+        }).mount('#app');
+    </script>
+</body>
+</template
